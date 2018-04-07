@@ -1,0 +1,29 @@
+service: serverless_lambda_python_sample
+provider:
+  name: aws
+  apiKeys:
+    - mySecretKey
+  runtime: python3.6
+  memory: 128
+  timeout: 60
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${opt:profile, self:custom.defaultProfile}
+  region: ${opt:region, self:custom.defaultRegion}
+
+custom:
+  defaultStage: dev
+  defaultProfile: default
+  defaultRegion: ap-northeast-1
+
+plugins:
+  - serverless-offline #ローカル環境での実行を可能にする
+  - serverless-python-requirements #デプロイ時ライブラリのパッケージングを行なってくれる
+
+functions:
+  run-serverspec:
+    handler: index.lambda_handler
+    events:
+      - http:
+          path: api/helloworld
+          method: get
+          private: true
