@@ -1,0 +1,33 @@
+service: serverless_lambda_python_sample
+provider:
+  name: aws
+  apiKeys:
+    - mySecretKey
+  runtime: python3.6
+  memorySize: 128
+  timeout: 60
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${opt:profile, self:custom.defaultProfile}
+  region: ${opt:region, self:custom.defaultRegion}
+
+custom:
+  defaultStage: dev
+  defaultProfile: default
+  defaultRegion: ap-northeast-1
+  serverlessIfElse: # provider.stage = prod の時以外はfunc02をデプロイしない
+    - If: '"${self:provider.stage}" != "prod"'
+      Exclude:
+        - functions.func02
+
+plugins:
+  - serverless-plugin-ifelse
+
+functions:
+  func01:
+    handler: index.lambda_handler
+    events:
+      - schedule: cron(0 2 1 * ? *)
+  func02:
+    handler: index.lambda_handler
+    events:
+      - schedule: cron(0 2 1 * ? *)
