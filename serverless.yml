@@ -4,7 +4,7 @@ provider:
   apiKeys:
     - mySecretKey
   runtime: python3.6
-  memory: 128
+  memorySize: 128
   timeout: 60
   stage: ${opt:stage, self:custom.defaultStage}
   profile: ${opt:profile, self:custom.defaultProfile}
@@ -20,7 +20,7 @@ plugins:
   - serverless-python-requirements #デプロイ時ライブラリのパッケージングを行なってくれる
 
 functions:
-  run-serverspec:
+  helloworld:
     handler: index.lambda_handler
     events:
       - http:

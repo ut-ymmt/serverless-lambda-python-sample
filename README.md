@@ -1,5 +1,5 @@
 # serverless-lambda-python-sample
-AWSのLambdaとAPI Gatewayを利用する環境をserverless frameworkで構築するサンプル
+serverless frameworkのサンプルテンプレート
 
 ## serverless framework install
 [公式サイト](https://serverless.com/)の導入手順を参考にコマンドをインストール
@@ -13,6 +13,9 @@ npm install serverless -g
 開発に必要なライブラリをインストール
 
 ```
+# 新規プラグインインストール
+sls install plugin -n <plugin_name>
+
 # serverless frameworkのプラグインをインストール
 npm install
 
